@@ -308,6 +308,17 @@ def explain_player(name, k=5):
     return out
 
 
+def squad_needs(club):
+    import optimiser
+    return optimiser.squad_needs(club)
+
+
+def plan_signings(club, budget_eur_m, max_signings=3, positions=None, max_age=None, objective="quality"):
+    import optimiser
+    return optimiser.plan_signings(club, budget_eur_m, max_signings, positions=positions, max_age=max_age,
+                                   objective=objective)
+
+
 def _fn(name, desc, props, required):
     return {"type": "function", "function": {"name": name, "description": desc, "parameters": {
         "type": "object", "properties": props, "required": required}}}
@@ -332,6 +343,20 @@ SCHEMAS = [
         {"name": NAME, "k": {"type": "integer", "description": "How many players, 1-15, default 5"},
          "max_age": {"type": "number", "description": "Maximum age"},
          "max_value_eur_m": {"type": "number", "description": "Maximum market value in EUR millions"}}, ["name"]),
+    _fn("squad_needs", "A club's squad needs this season: reliable players per position against a target depth, "
+        "players likely to leave, ageing players, and priority positions.",
+        {"club": {"type": "string", "description": "Club name, e.g. 'FC Barcelona'"}}, ["club"]),
+    _fn("plan_signings", "Best set of signings for a club within a budget, chosen by an integer-programming optimiser "
+        "that fills the club's priority positions. Use for any 'who should club X sign with budget Y' question.",
+        {"club": {"type": "string", "description": "Club name"},
+         "budget_eur_m": {"type": "number", "description": "Transfer budget in EUR millions (market values)"},
+         "max_signings": {"type": "integer", "description": "Maximum number of signings, 1-5, default 3"},
+         "positions": {"type": "array", "items": {"type": "string", "enum": SUB_POSITIONS},
+                       "description": "Only plan for these positions (optional; default = the club's needs)"},
+         "max_age": {"type": "number", "description": "Maximum age (optional)"},
+         "objective": {"type": "string", "enum": ["quality", "bargains"],
+                       "description": "quality = most total fair value; bargains = biggest gap between fair and market value"}},
+        ["club", "budget_eur_m"]),
     _fn("search_players", "Search all players by position and filters, e.g. undervalued centre-backs under 26. "
         "Use this when the user names a position or role rather than a reference player. Results include move probability.",
         {"sub_position": {"type": "string", "enum": SUB_POSITIONS},
@@ -345,9 +370,10 @@ SCHEMAS = [
          "exclude_club": {"type": "string", "description": "Leave out players already at this club, e.g. the user's own club"}}, []),
 ]
 TOOLS = {"find_player": find_player, "explain_player": explain_player, "compare_players": compare_players, "transfer_probability": transfer_probability,
-         "fair_price": fair_price, "similar_players": similar_players, "search_players": search_players}
+         "fair_price": fair_price, "similar_players": similar_players, "search_players": search_players,
+         "squad_needs": squad_needs, "plan_signings": plan_signings}
 LIMITS = {"k": (1, 15), "max_age": (15, 45), "max_value_eur_m": (0, 500), "min_value_eur_m": (0, 500),
-          "min_minutes_share": (0, 1)}
+          "min_minutes_share": (0, 1), "budget_eur_m": (1, 1000), "max_signings": (1, 5)}
 
 
 def validate(name, args):
@@ -367,6 +393,12 @@ def validate(name, args):
                 if isinstance(v, str):
                     v = [x for x in re.split(r",| and | vs\.? | versus ", v) if x.strip()]
                 v = [str(x).strip() for x in v if str(x).strip()]
+                if k == "positions":
+                    mapped = [_sub(x) for x in v]
+                    if not v or None in mapped or len(v) > 5:
+                        return None, {"error": "bad_argument", "argument": k, "value": v, "allowed": SUB_POSITIONS}
+                    clean[k] = list(dict.fromkeys(mapped))
+                    continue
                 if not 2 <= len(v) <= 4:
                     return None, {"error": "bad_argument", "argument": k, "value": v, "expected": "2-4 names"}
                 clean[k] = v

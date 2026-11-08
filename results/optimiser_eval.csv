@@ -1,0 +1,229 @@
+club,budget,objective,optimiser,greedy,budget_used,n_signings,gain_pct
+Basaksehir FK,20,quality,38.6,35.9,1.0,3,7.520891364902515
+Basaksehir FK,20,bargains,19.0,5.0,0.9800000000000001,3,280.0
+Basaksehir FK,50,quality,85.5,52.4,1.0,3,63.16793893129771
+Basaksehir FK,50,bargains,35.5,5.0,1.0,3,610.0
+Basaksehir FK,100,quality,145.8,52.4,1.0,3,178.24427480916032
+Basaksehir FK,100,bargains,45.8,5.0,1.0,3,815.9999999999999
+Nottingham Forest,20,quality,40.4,39.6,1.0,3,2.020202020202013
+Nottingham Forest,20,bargains,22.7,10.9,0.99,3,108.25688073394495
+Nottingham Forest,50,quality,87.0,44.7,1.0,3,94.63087248322147
+Nottingham Forest,50,bargains,37.4,10.9,0.98,3,243.11926605504587
+Nottingham Forest,100,quality,150.2,44.7,1.0,3,236.01789709172255
+Nottingham Forest,100,bargains,51.9,10.9,0.85,3,376.14678899082566
+Juventus FC,20,quality,34.6,33.2,1.0,3,4.216867469879514
+Juventus FC,20,bargains,16.5,5.0,0.99,3,230.0
+Juventus FC,50,quality,76.7,41.8,1.0,3,83.49282296650719
+Juventus FC,50,bargains,26.7,5.0,1.0,3,434.0
+Juventus FC,100,quality,130.4,41.8,1.0,3,211.9617224880383
+Juventus FC,100,bargains,32.3,5.0,0.88,3,545.9999999999999
+CD Santa Clara,20,quality,40.0,36.5,1.0,3,9.58904109589041
+CD Santa Clara,20,bargains,20.4,7.1,0.925,3,187.32394366197184
+CD Santa Clara,50,quality,84.3,78.3,0.99,3,7.662835249042146
+CD Santa Clara,50,bargains,35.6,7.1,0.95,3,401.40845070422534
+CD Santa Clara,100,quality,150.2,78.3,1.0,3,91.82630906768837
+CD Santa Clara,100,bargains,51.7,7.1,0.975,3,628.1690140845071
+FC Twente Enschede,20,quality,39.6,,0.95,3,
+FC Twente Enschede,20,bargains,22.7,5.7,0.975,3,298.2456140350877
+FC Twente Enschede,50,quality,86.2,48.8,1.0,3,76.6393442622951
+FC Twente Enschede,50,bargains,36.2,5.7,1.0,3,535.0877192982457
+FC Twente Enschede,100,quality,169.0,135.9,0.98,3,24.35614422369389
+FC Twente Enschede,100,bargains,71.0,8.2,0.98,3,765.8536585365854
+KV Mechelen,20,quality,39.6,,0.95,3,
+KV Mechelen,20,bargains,22.7,5.7,0.975,3,298.2456140350877
+KV Mechelen,50,quality,86.2,48.8,1.0,3,76.6393442622951
+KV Mechelen,50,bargains,36.2,5.7,1.0,3,535.0877192982457
+KV Mechelen,100,quality,169.0,135.9,0.98,3,24.35614422369389
+KV Mechelen,100,bargains,71.0,8.2,0.98,3,765.8536585365854
+Parma Calcio 1913,20,quality,41.9,41.9,1.0,3,0.0
+Parma Calcio 1913,20,bargains,21.9,4.2,1.0,3,421.4285714285714
+Parma Calcio 1913,50,quality,84.5,41.9,0.98,3,101.67064439140812
+Parma Calcio 1913,50,bargains,35.6,4.2,0.96,3,747.6190476190476
+Parma Calcio 1913,100,quality,143.8,41.9,0.95,3,243.1980906921241
+Parma Calcio 1913,100,bargains,48.8,4.2,0.95,3,1061.9047619047617
+Paris FC,20,quality,36.1,35.9,1.0,3,0.5571030640668603
+Paris FC,20,bargains,16.3,6.5,0.95,3,150.76923076923077
+Paris FC,50,quality,75.3,49.1,1.0,3,53.36048879837066
+Paris FC,50,bargains,26.6,6.5,0.96,3,309.2307692307693
+Paris FC,100,quality,161.7,136.9,1.0,3,18.11541271000729
+Paris FC,100,bargains,61.7,6.5,1.0,3,849.2307692307693
+Konyaspor,20,quality,38.9,38.7,0.975,3,0.5167958656330639
+Konyaspor,20,bargains,22.5,5.5,0.9,3,309.09090909090907
+Konyaspor,50,quality,89.5,66.0,1.0,3,35.60606060606061
+Konyaspor,50,bargains,39.5,9.6,1.0,3,311.45833333333337
+Konyaspor,100,quality,163.6,66.0,0.99,3,147.87878787878788
+Konyaspor,100,bargains,64.6,9.6,0.99,3,572.9166666666666
+Galatasaray,20,quality,36.0,,0.95,3,
+Galatasaray,20,bargains,17.7,6.5,0.95,3,172.30769230769232
+Galatasaray,50,quality,79.6,71.4,1.0,3,11.484593837534996
+Galatasaray,50,bargains,31.3,10.7,0.92,3,192.52336448598132
+Galatasaray,100,quality,164.2,159.2,0.97,3,3.14070351758794
+Galatasaray,100,bargains,67.2,10.7,0.92,3,528.0373831775702
+Burnley FC,20,quality,41.6,34.2,1.0,3,21.63742690058479
+Burnley FC,20,bargains,23.2,5.6,0.95,3,314.28571428571433
+Burnley FC,50,quality,83.2,73.1,0.98,3,13.81668946648428
+Burnley FC,50,bargains,35.1,9.8,0.76,3,258.1632653061224
+Burnley FC,100,quality,165.5,160.2,1.0,3,3.3083645443196077
+Burnley FC,100,bargains,70.2,9.8,0.9,3,616.3265306122449
+Omilos Filathlon Irakliou FC,20,quality,38.5,,1.0,3,
+Omilos Filathlon Irakliou FC,20,bargains,20.5,9.3,0.9800000000000001,3,120.43010752688171
+Omilos Filathlon Irakliou FC,50,quality,89.1,43.7,1.0,3,103.89016018306633
+Omilos Filathlon Irakliou FC,50,bargains,39.1,9.3,1.0,3,320.43010752688167
+Omilos Filathlon Irakliou FC,100,quality,151.0,43.7,1.0,3,245.53775743707092
+Omilos Filathlon Irakliou FC,100,bargains,51.0,9.3,1.0,3,448.38709677419354
+Excelsior Rotterdam,20,quality,39.6,,0.95,3,
+Excelsior Rotterdam,20,bargains,22.7,5.7,0.975,3,298.2456140350877
+Excelsior Rotterdam,50,quality,86.2,48.8,1.0,3,76.6393442622951
+Excelsior Rotterdam,50,bargains,36.2,5.7,1.0,3,535.0877192982457
+Excelsior Rotterdam,100,quality,169.0,135.9,0.98,3,24.35614422369389
+Excelsior Rotterdam,100,bargains,71.0,8.2,0.98,3,765.8536585365854
+Cagliari Calcio,20,quality,35.8,35.8,0.975,3,0.0
+Cagliari Calcio,20,bargains,16.5,4.0,0.9400000000000001,3,312.5
+Cagliari Calcio,50,quality,73.9,39.8,0.99,3,85.67839195979903
+Cagliari Calcio,50,bargains,25.0,4.0,0.95,3,525.0
+Cagliari Calcio,100,quality,133.9,39.8,1.0,3,236.43216080402013
+Cagliari Calcio,100,bargains,35.5,4.0,0.9,3,787.5
+Kasimpasa,20,quality,38.0,,0.95,3,
+Kasimpasa,20,bargains,21.8,7.7,0.975,3,183.11688311688314
+Kasimpasa,50,quality,80.4,58.7,0.96,3,36.967632027257245
+Kasimpasa,50,bargains,32.4,7.7,0.96,3,320.7792207792208
+Kasimpasa,100,quality,167.4,146.6,1.0,3,14.18826739427013
+Kasimpasa,100,bargains,67.4,7.7,1.0,3,775.3246753246754
+Kilmarnock FC,20,quality,38.4,,0.975,3,
+Kilmarnock FC,20,bargains,19.2,2.5,0.95,3,668.0
+Kilmarnock FC,50,quality,79.4,42.7,1.0,3,85.94847775175644
+Kilmarnock FC,50,bargains,31.6,2.5,0.976,3,1164.0
+Kilmarnock FC,100,quality,136.6,42.7,1.0,3,219.9063231850117
+Kilmarnock FC,100,bargains,38.6,2.5,0.8,3,1444.0
+Brentford FC,20,quality,40.4,39.6,1.0,3,2.020202020202013
+Brentford FC,20,bargains,22.7,10.9,0.99,3,108.25688073394495
+Brentford FC,50,quality,87.0,44.7,1.0,3,94.63087248322147
+Brentford FC,50,bargains,37.4,10.9,0.98,3,243.11926605504587
+Brentford FC,100,quality,150.2,44.7,1.0,3,236.01789709172255
+Brentford FC,100,bargains,51.9,10.9,0.85,3,376.14678899082566
+Rio Ave FC,20,quality,40.7,32.5,1.0,3,25.230769230769237
+Rio Ave FC,20,bargains,22.9,4.3,0.975,3,432.5581395348837
+Rio Ave FC,50,quality,78.9,49.0,1.0,3,61.020408163265316
+Rio Ave FC,50,bargains,30.7,4.3,0.85,3,613.953488372093
+Rio Ave FC,100,quality,159.4,136.1,0.95,3,17.119764878765622
+Rio Ave FC,100,bargains,64.4,7.4,0.95,3,770.2702702702703
+Elche CF,20,quality,38.6,35.9,1.0,3,7.520891364902515
+Elche CF,20,bargains,19.0,5.0,0.9800000000000001,3,280.0
+Elche CF,50,quality,85.5,52.4,1.0,3,63.16793893129771
+Elche CF,50,bargains,35.5,5.0,1.0,3,610.0
+Elche CF,100,quality,145.8,52.4,1.0,3,178.24427480916032
+Elche CF,100,bargains,45.8,5.0,1.0,3,815.9999999999999
+FC Copenhagen,20,quality,38.0,33.7,0.95,3,12.759643916913937
+FC Copenhagen,20,bargains,21.8,7.7,0.975,3,183.11688311688314
+FC Copenhagen,50,quality,80.4,58.7,0.96,3,36.967632027257245
+FC Copenhagen,50,bargains,32.4,7.7,0.96,3,320.7792207792208
+FC Copenhagen,100,quality,167.4,146.6,1.0,3,14.18826739427013
+FC Copenhagen,100,bargains,67.4,7.7,1.0,3,775.3246753246754
+Falkirk FC,20,quality,44.2,44.2,0.95,3,0.0
+Falkirk FC,20,bargains,25.6,8.4,0.9,3,204.7619047619048
+Falkirk FC,50,quality,87.5,53.4,1.0,3,63.857677902621724
+Falkirk FC,50,bargains,40.2,8.4,0.92,3,378.5714285714286
+Falkirk FC,100,quality,174.5,173.3,1.0,3,0.69244085401038
+Falkirk FC,100,bargains,75.3,11.5,0.98,3,554.7826086956521
+Club Brugge KV,20,quality,36.0,,0.95,3,
+Club Brugge KV,20,bargains,17.7,6.5,0.95,3,172.30769230769232
+Club Brugge KV,50,quality,79.6,71.4,1.0,3,11.484593837534996
+Club Brugge KV,50,bargains,31.3,10.7,0.92,3,192.52336448598132
+Club Brugge KV,100,quality,164.2,159.2,0.97,3,3.14070351758794
+Club Brugge KV,100,bargains,67.2,10.7,0.92,3,528.0373831775702
+Angers SCO,20,quality,36.5,29.9,0.975,3,22.07357859531773
+Angers SCO,20,bargains,23.3,3.6,0.9400000000000001,3,547.2222222222222
+Angers SCO,50,quality,85.0,56.3,0.98,3,50.976909413854365
+Angers SCO,50,bargains,36.0,7.7,0.98,3,367.53246753246754
+Angers SCO,100,quality,164.1,56.3,1.0,3,191.47424511545293
+Angers SCO,100,bargains,64.4,7.7,0.975,3,736.3636363636364
+US Lecce,20,quality,38.3,,0.95,3,
+US Lecce,20,bargains,20.0,5.0,1.0,3,300.0
+US Lecce,50,quality,81.7,76.7,0.94,3,6.51890482398957
+US Lecce,50,bargains,34.7,9.1,0.84,3,281.31868131868134
+US Lecce,100,quality,161.8,76.7,0.99,3,110.95176010430248
+US Lecce,100,bargains,62.8,9.1,0.99,3,590.1098901098901
+Torino FC,20,quality,41.6,36.8,1.0,3,13.043478260869579
+Torino FC,20,bargains,21.8,4.4,0.9650000000000001,3,395.4545454545454
+Torino FC,50,quality,77.0,40.8,1.0,3,88.72549019607845
+Torino FC,50,bargains,27.0,4.4,1.0,3,513.6363636363636
+Torino FC,100,quality,133.2,40.8,1.0,3,226.47058823529414
+Torino FC,100,bargains,36.8,4.4,0.95,3,736.3636363636363
+Leeds United,20,quality,38.6,36.3,1.0,3,6.3360881542699845
+Leeds United,20,bargains,19.0,4.4,0.9800000000000001,3,331.8181818181818
+Leeds United,50,quality,85.5,52.4,1.0,3,63.16793893129771
+Leeds United,50,bargains,35.5,4.4,1.0,3,706.8181818181818
+Leeds United,100,quality,145.8,52.4,1.0,3,178.24427480916032
+Leeds United,100,bargains,45.8,4.4,1.0,3,940.9090909090909
+Sevilla FC,20,quality,35.8,33.5,0.975,3,6.865671641791036
+Sevilla FC,20,bargains,17.0,6.2,0.99,3,174.19354838709677
+Sevilla FC,50,quality,76.0,46.0,1.0,3,65.21739130434783
+Sevilla FC,50,bargains,26.7,6.2,0.96,3,330.64516129032256
+Sevilla FC,100,quality,161.7,133.8,1.0,3,20.852017937219713
+Sevilla FC,100,bargains,61.7,6.2,1.0,3,895.1612903225806
+RB Leipzig,20,quality,38.9,38.7,0.975,3,0.5167958656330639
+RB Leipzig,20,bargains,22.5,5.5,0.9,3,309.09090909090907
+RB Leipzig,50,quality,89.5,66.0,1.0,3,35.60606060606061
+RB Leipzig,50,bargains,39.5,9.6,1.0,3,311.45833333333337
+RB Leipzig,100,quality,163.6,66.0,0.99,3,147.87878787878788
+RB Leipzig,100,bargains,64.6,9.6,0.99,3,572.9166666666666
+Hamburger SV,20,quality,39.6,,0.95,3,
+Hamburger SV,20,bargains,22.7,5.7,0.975,3,298.2456140350877
+Hamburger SV,50,quality,86.2,48.8,1.0,3,76.6393442622951
+Hamburger SV,50,bargains,36.2,5.7,1.0,3,535.0877192982457
+Hamburger SV,100,quality,169.0,135.9,0.98,3,24.35614422369389
+Hamburger SV,100,bargains,71.0,8.2,0.98,3,765.8536585365854
+SC Braga,20,quality,40.5,38.6,0.975,3,4.92227979274611
+SC Braga,20,bargains,21.0,5.7,0.975,3,268.42105263157896
+SC Braga,50,quality,82.8,65.0,1.0,3,27.38461538461538
+SC Braga,50,bargains,32.8,9.8,0.9,3,234.69387755102034
+SC Braga,100,quality,160.1,65.0,1.0,3,146.30769230769232
+SC Braga,100,bargains,61.3,9.8,0.935,3,525.5102040816327
+Società Sportiva Lazio S.p.A.,20,quality,36.0,36.0,1.0,3,0.0
+Società Sportiva Lazio S.p.A.,20,bargains,19.3,9.2,0.975,3,109.7826086956522
+Società Sportiva Lazio S.p.A.,50,quality,79.5,45.8,1.0,3,73.58078602620088
+Società Sportiva Lazio S.p.A.,50,bargains,30.7,9.2,0.92,3,233.69565217391306
+Società Sportiva Lazio S.p.A.,100,quality,141.3,45.8,1.0,3,208.51528384279482
+Società Sportiva Lazio S.p.A.,100,bargains,41.3,9.2,1.0,3,348.9130434782609
+Deportivo Alavés,20,quality,41.6,41.6,1.0,3,0.0
+Deportivo Alavés,20,bargains,24.5,5.0,0.95,3,390.0
+Deportivo Alavés,50,quality,85.3,69.1,0.96,3,23.44428364688857
+Deportivo Alavés,50,bargains,37.8,9.2,0.96,3,310.8695652173913
+Deportivo Alavés,100,quality,165.6,69.1,1.0,3,139.65267727930538
+Deportivo Alavés,100,bargains,65.6,9.2,1.0,3,613.0434782608695
+Sparta Rotterdam,20,quality,38.9,27.1,0.975,3,43.54243542435423
+Sparta Rotterdam,20,bargains,22.5,5.5,0.9,3,309.09090909090907
+Sparta Rotterdam,50,quality,89.5,66.0,1.0,3,35.60606060606061
+Sparta Rotterdam,50,bargains,39.5,9.6,1.0,3,311.45833333333337
+Sparta Rotterdam,100,quality,163.6,66.0,0.99,3,147.87878787878788
+Sparta Rotterdam,100,bargains,64.6,9.6,0.99,3,572.9166666666666
+Real Oviedo,20,quality,41.6,34.2,1.0,3,21.63742690058479
+Real Oviedo,20,bargains,23.2,5.6,0.95,3,314.28571428571433
+Real Oviedo,50,quality,83.2,73.1,0.98,3,13.81668946648428
+Real Oviedo,50,bargains,35.1,9.8,0.76,3,258.1632653061224
+Real Oviedo,100,quality,165.5,160.2,1.0,3,3.3083645443196077
+Real Oviedo,100,bargains,70.2,12.8,0.9,3,448.43750000000006
+Athlitiki Enosi Konstantinoupoleos,20,quality,36.5,29.9,0.975,3,22.07357859531773
+Athlitiki Enosi Konstantinoupoleos,20,bargains,23.3,3.6,0.9400000000000001,3,547.2222222222222
+Athlitiki Enosi Konstantinoupoleos,50,quality,85.0,56.3,0.98,3,50.976909413854365
+Athlitiki Enosi Konstantinoupoleos,50,bargains,36.0,7.7,0.98,3,367.53246753246754
+Athlitiki Enosi Konstantinoupoleos,100,quality,164.1,56.3,1.0,3,191.47424511545293
+Athlitiki Enosi Konstantinoupoleos,100,bargains,64.4,7.7,0.975,3,736.3636363636364
+Borussia Mönchengladbach,20,quality,38.8,36.1,1.0,3,7.479224376731289
+Borussia Mönchengladbach,20,bargains,20.2,3.7,0.95,3,445.94594594594594
+Borussia Mönchengladbach,50,quality,78.2,52.6,0.95,3,48.669201520912544
+Borussia Mönchengladbach,50,bargains,30.7,3.7,0.95,3,729.7297297297297
+Borussia Mönchengladbach,100,quality,138.8,52.6,1.0,3,163.87832699619776
+Borussia Mönchengladbach,100,bargains,40.4,3.7,0.85,3,991.8918918918918
+FCV Dender EH,20,quality,41.6,34.2,1.0,3,21.63742690058479
+FCV Dender EH,20,bargains,23.2,5.6,0.95,3,314.28571428571433
+FCV Dender EH,50,quality,83.2,73.1,0.98,3,13.81668946648428
+FCV Dender EH,50,bargains,35.1,9.8,0.76,3,258.1632653061224
+FCV Dender EH,100,quality,165.5,160.2,1.0,3,3.3083645443196077
+FCV Dender EH,100,bargains,70.2,12.8,0.9,3,448.43750000000006
+Hibernian FC,20,quality,37.5,25.1,1.0,3,49.402390438247004
+Hibernian FC,20,bargains,17.5,4.5,1.0,3,288.8888888888889
+Hibernian FC,50,quality,79.8,29.1,1.0,3,174.22680412371133
+Hibernian FC,50,bargains,33.4,4.5,0.85,3,642.2222222222222
+Hibernian FC,100,quality,143.8,29.1,1.0,3,394.1580756013746
+Hibernian FC,100,bargains,43.8,4.5,1.0,3,873.3333333333333

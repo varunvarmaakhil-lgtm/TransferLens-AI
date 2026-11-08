@@ -69,3 +69,25 @@ The label was rebuilt from 1.9M match appearances (a change of main club between
 ## Data
 
 Nodeball Football Datalake by salimt (github.com/salimt), built on Transfermarkt. See README_datalake.md.
+
+## Squad and budget optimiser (Phase 5)
+
+Given a club and a budget, TransferLens finds the club's weak positions (reliable players per position against a target depth, plus players likely to leave and ageing players). It then chooses signings with an integer program (scipy milp / HiGHS), not a greedy heuristic.
+
+Constraints: the budget at market value, the number of signings, per-position caps and minimums, at most one player per selling club, and an optional age limit.
+
+Evaluation: 40 clubs x budgets of 20, 50 and 100 million EUR x 2 objectives, with greedy given the same rules.
+
+| Result | Value |
+|---|---|
+| Valid scenarios | 228 |
+| Optimiser worse than greedy | never |
+| Quality objective: strictly better than greedy | 95% of scenarios, median +35.6% total fair value |
+| Bargains objective: strictly better than greedy | 100% of scenarios |
+| Greedy failed to build a valid plan | 10 of 228 |
+
+Example: FC Barcelona, 80 million EUR, 3 signings: Kerkez (LB), Vicario (GK), Doan (RW). 80.0M spent for 117.3M of fair value, solved in 0.01s.
+
+The agent reaches the optimiser through two tools, squad_needs and plan_signings. It presents the optimiser's picks as returned and asks for a budget if none is given.
+
+Known limitation: availability (move probability) is a filter, not part of the objective, so a plan can include players who are unlikely to be sold.
