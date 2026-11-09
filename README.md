@@ -10,7 +10,8 @@ AI-assisted football recruitment for Europe's top leagues. Ask in plain English 
 | Fair-price ranges (80% interval for market value) | Season by season, conformal calibration | 79.9% of real values inside the range; median error 19.8% vs 32.1% for last season's value |
 | Similar-player search | A player's previous-season profile must find himself among ~366 same-position players | Top 10 in 34.1% of cases vs 3.3% by chance |
 | Explanations (SHAP) | Contributions must sum to each prediction | Max error 1.8e-14 |
-| Agent (local Qwen3 8B, 7 tools) | Manual question set, grounding check on every answer | Comparisons and rankings computed in code; untraced numbers sent back for correction |
+| Signing optimiser (integer program) | 40 clubs x 3 budgets x 2 objectives against a greedy baseline with the same rules | Never worse than greedy; strictly better in 95% of quality scenarios (median +25.7% total fair value) |
+| Agent (local Qwen3 8B, 9 tools) | 52 known-answer questions: right tool, right filters, real facts, every number traceable | 98% pass (83% before argument checks in code); route, args and facts 100%, grounded 98% |
 
 ## The honest-evaluation story
 
