@@ -6,8 +6,8 @@ AI-assisted football recruitment for Europe's top leagues. Ask in plain English 
 
 | Component | How it was tested | Result |
 | --- | --- | --- |
-| Transfer prediction (will a player change club next season?) | Season by season, each test season unseen in training | ROC-AUC 0.73 (2019-2024), 0.75 on 2022-2024 for the live model; logistic regression 0.68 |
-| Fair-price ranges (80% interval for market value) | Season by season, conformal calibration | 79.8% of real values inside the range; median error 19.8% vs 31.7% for last season's value |
+| Transfer prediction (will a player change club next season?) | Season by season, each test season unseen in training | ROC-AUC 0.73 (2019-2024), 0.74 on 2022-2024 for the live model; logistic regression 0.68 |
+| Fair-price ranges (80% interval for market value) | Season by season, conformal calibration | 79.9% of real values inside the range; median error 19.8% vs 32.1% for last season's value |
 | Similar-player search | A player's previous-season profile must find himself among ~366 same-position players | Top 10 in 34.1% of cases vs 3.3% by chance |
 | Explanations (SHAP) | Contributions must sum to each prediction | Max error 1.8e-14 |
 | Agent (local Qwen3 8B, 7 tools) | Manual question set, grounding check on every answer | Comparisons and rankings computed in code; untraced numbers sent back for correction |
