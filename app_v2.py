@@ -9,6 +9,8 @@ import tools
 import optimiser
 
 st.set_page_config(page_title="TransferLens AI", page_icon=":soccer:", layout="wide")
+import theme
+theme.apply()
 R = "results/"
 CC = st.column_config
 COLS = {
@@ -60,7 +62,7 @@ def show_career(car):
     c[4].metric("Peak market value", fmt_m(tot["peak_market_value_eur_m"]))
     mv = pd.DataFrame(car["seasons"]).set_index("season")["market_value_eur_m"].dropna()
     if len(mv) > 1:
-        st.line_chart(mv.rename("Market value (EUR M)"), height=220)
+        st.line_chart(mv.rename("Market value (EUR M)"), height=220, color=theme.AMBER)
     table(list(reversed(car["seasons"])), ["season", "club", "league", "age", "apps", "minutes", "goals",
                                            "assists", "goals_plus_assists_per90", "market_value_eur_m"])
     cov = pd.DataFrame([s for s in car["seasons"] if s.get("covered", True)])
@@ -135,7 +137,7 @@ def shortlist(sub, max_age, max_val, undervalued, sort_by, k, excl):
 # ------------------------------------------------------------------ sidebar
 ok, err = llm_status()
 with st.sidebar:
-    st.title("TransferLens AI")
+    st.markdown(theme.MARK, unsafe_allow_html=True)
     st.caption("Football recruitment with evaluated models. Numbers come from models, the optimiser or the data; "
                "the language model only picks tools and explains results.")
     model = st.selectbox("Chat model (local, Ollama)", ["qwen3:8b", "qwen3:4b"])
@@ -144,6 +146,7 @@ with st.sidebar:
     st.caption("Data: Nodeball Football Datalake (Transfermarkt-based), season 2025/26. "
                "Market values are Transfermarkt estimates, not fees.")
 
+theme.hero(len(tools._table()))
 tab_chat, tab_plan, tab_player, tab_list, tab_quality = st.tabs(
     ["Scout chat", "Signing planner", "Player profile", "Shortlist", "Model quality"])
 
