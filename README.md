@@ -115,3 +115,20 @@ The fix was code, not prompt wording. Before any tool runs, the agent's argument
 The one remaining failure was a bug in the club detector ("We are Arsenal. Find" was read as the club name); it was fixed after the run and checked on that question. Results: results/agent_eval_baseline.csv and results/agent_eval.csv.
 
 Limits: 52 questions is small (each one is about 2% of the score), the questions were written by the author, and passing them does not prove a scout would agree with the recommendations.
+
+## Data-quality fix: players outside the covered leagues
+
+Looking at outputs found a bug: Lionel Messi was shown with an 81% move probability and a EUR 5.6M fair value. The data covers mainly European leagues, so a player at a club outside them (MLS, Saudi Pro League, English lower leagues, small clubs seen only in qualifiers) appears only in national-team or cup games. The 'club with most minutes' then became a national team or a cup-only club with a handful of players, and every club feature was built from a few games.
+
+2,611 of 98,289 player-seasons (2.7%) were affected, 1,008 of them in 2025/26 (after summer moves to Saudi Arabia and MLS). clean_coverage.py now keeps a player-season only if the club has a name and at least 11 players appear for it; everything after it was retrained and re-evaluated.
+
+| Metric | Before | After |
+|---|---|---|
+| Transfer model ROC-AUC (2022-2024, unseen seasons) | 0.748 | 0.740 |
+| Transfer model PR-AUC | 0.654 | 0.634 |
+| Fair-value 80% range coverage | 79.8% | 79.9% |
+| Optimiser: quality objective strictly better than greedy | 95%, median +35.6% | 95%, median +25.7% |
+
+The junk rows were slightly easy to predict, so they flattered the transfer model by 0.008 ROC-AUC; 0.740 is the honest number. Players outside the covered leagues (for example Messi, Cristiano Ronaldo, Neymar) are still searchable in the app with their career in the data, but without predictions.
+
+Agent re-run on the cleaned data (52 questions, qwen3:8b): 98% pass (51/52); route, args and facts 100%; grounded 98%. The one failure was an explanation answer ("Explain Robert Lewandowski's transfer probability") where 2 of 13 numbers could not be traced to a tool output, even after the self-check. The app shows the same check under every answer, so such answers are visible to the user.

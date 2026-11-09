@@ -1,0 +1,77 @@
+        rows  dropped  dropped_pct
+season                            
+2012    6635      134          2.0
+2013    6797      260          3.8
+2014    6458      146          2.3
+2015    6769      198          2.9
+2016    6782      236          3.5
+2017    6642      160          2.4
+2018    6842      436          6.4
+2019    6597      155          2.3
+2020    7608      149          2.0
+2021    6008      112          1.9
+2022    7098      221          3.1
+2023    7150      220          3.1
+2024    7852      360          4.6
+2025    9051     1225         13.5
+total: kept 94277, dropped 4012 (4.08%)
+examples dropped in 2025: Danilo, Theo Hernández, João Félix, Darwin Núñez, Rúben Neves, Zan Vipotnik, Marcos Leonardo, Malcom
+saved /Users/varunvarma/Transferlens/data/processed/player_seasons.csv (full table kept as player_seasons_all.csv)
+rows 94277 (labelled 58740) | features 45
+Transfer eval:   0%|                                            | 0/3 [00:00<?, ?season/s]                                                                                          Transfer eval:   0%|                                            | 0/3 [00:04<?, ?season/s]Transfer eval:  33%|████████████                        | 1/3 [00:04<00:09,  4.78s/season]                                                                                          Transfer eval:  33%|████████████                        | 1/3 [00:11<00:09,  4.78s/season]Transfer eval:  67%|████████████████████████            | 2/3 [00:11<00:06,  6.13s/season]                                                                                          Transfer eval:  67%|████████████████████████            | 2/3 [00:22<00:06,  6.13s/season]Transfer eval: 100%|████████████████████████████████████| 3/3 [00:22<00:00,  8.08s/season]Transfer eval: 100%|████████████████████████████████████| 3/3 [00:22<00:00,  7.42s/season]
+[test 2022] ROC-AUC 0.739 | PR-AUC 0.621 | base rate 0.324
+[test 2023] ROC-AUC 0.749 | PR-AUC 0.641 | base rate 0.323
+[test 2024] ROC-AUC 0.731 | PR-AUC 0.641 | base rate 0.355
+mean ROC-AUC 0.740 on 2022-2024 (Phase 1 model on the same seasons: 0.742)
+final model: tune on 2024, refit on 2012-2024, score 2025/26 ...
+scored 7826 players for 2025/26 | mean probability 0.374
+Saved models/transfer_now.cbm and data/processed/transfer_prob_2025.csv
+rows 90214 | features 38
+[test 2019] coverage 0.812 | width x2.58 | MdAPE model 0.202 vs last-value 0.375
+[test 2020] coverage 0.800 | width x2.59 | MdAPE model 0.208 vs last-value 0.314
+[test 2021] coverage 0.812 | width x2.37 | MdAPE model 0.192 vs last-value 0.286
+[test 2022] coverage 0.800 | width x2.43 | MdAPE model 0.184 vs last-value 0.286
+[test 2023] coverage 0.772 | width x2.42 | MdAPE model 0.208 vs last-value 0.333
+[test 2024] coverage 0.795 | width x2.60 | MdAPE model 0.196 vs last-value 0.333
+
+FAIR-PRICE MODEL, ROLLING ORIGIN (80% conformal range)
+ test_season    n  coverage_80  median_width_ratio  mdape_model  mdape_model_same_rows  mdape_last_value
+        2019 6250        0.812               2.584        0.239                  0.202             0.375
+        2020 7265        0.800               2.594        0.242                  0.208             0.314
+        2021 5878        0.812               2.369        0.215                  0.192             0.286
+        2022 6699        0.800               2.431        0.226                  0.184             0.286
+        2023 6760        0.772               2.423        0.247                  0.208             0.333
+        2024 6826        0.795               2.597        0.241                  0.196             0.333
+mean coverage 0.799 (target 0.80) | mean MdAPE model 0.198 vs last-value baseline 0.321
+
+2025/26: 7178 players scored, 370 flagged undervalued (value below the 80% range, minutes share >= 0.3)
+top 15 (values in EUR millions):
+             name           club_name   position  age  minutes_share  ga_p90  mv_end  fair_low  fair_mid  fair_high  value_gap
+    Bjørn Paulsen     Odense Boldklub   Defender 34.0           0.30    0.49     0.0       0.1       0.3        0.5      12.29
+   Jannich Storch          Randers FC Goalkeeper 32.0           0.31    0.00     0.0       0.1       0.3        0.4      10.67
+      Karl Darlow        Leeds United Goalkeeper 35.0           0.55    0.00     0.2       0.8       1.5        3.4       7.39
+      Allan Godói             Göztepe   Defender 32.0           0.61    0.10     0.1       0.3       0.6        1.2       6.40
+     Ryan McGowan       Livingston FC   Defender 36.0           0.59    0.05     0.0       0.1       0.2        0.2       6.13
+    Scott Pittman       Livingston FC   Midfield 33.0           0.78    0.23     0.0       0.2       0.3        0.4       5.64
+   Júnior Brumado      FC Midtjylland     Attack 26.0           0.50    0.81     0.8       2.0       4.0        8.7       4.96
+Stephen O'Donnell       Motherwell FC   Defender 33.0           0.63    0.05     0.0       0.2       0.2        0.3       4.79
+    Jeremy Bokila       Livingston FC     Attack 37.0           0.30    0.48     0.0       0.1       0.1        0.2       4.77
+      Simon Wæver Sönderjyske Fodbold   Defender 30.0           0.49    0.08     0.1       0.3       0.5        0.7       4.73
+    Lasse Nielsen      Vejle Boldklub   Defender 38.0           0.84    0.00     0.0       0.1       0.1        0.2       4.45
+     Paulo Victor          Alanyaspor Goalkeeper 39.0           0.41    0.00     0.0       0.1       0.2        0.5       4.34
+      Drey Wright           Dundee FC   Midfield 30.0           0.93    0.12     0.1       0.3       0.3        0.4       4.19
+    Dave Richards    Dundee United FC Goalkeeper 32.0           0.31    0.00     0.1       0.2       0.3        0.5       4.17
+  James Tavernier          Rangers FC   Defender 34.0           0.73    0.47     0.5       1.6       2.1        2.8       4.15
+
+Saved models/fair_price_v1.cbm, results/fair_price_eval.csv, results/undervalued_2025.csv
+players in 2025/2026: 7826
+[transfer] SHAP additivity check: max |sum(SHAP) + base - prediction| = 9.33e-15
+[transfer] top global drivers: apps_share, club_final_position, club_win_rate, apps_all, minutes_share, main_comp, age, mv_end
+[fairprice] SHAP additivity check: max |sum(SHAP) + base - prediction| = 2.13e-14
+[fairprice] top global drivers: club_median_mv, mv_end_prev1, age, minutes_all, mv_peak_prev, apps_all, minutes_share, main_comp
+saved 125216 explanation rows to /Users/varunvarma/Transferlens/data/processed/explanations_2025.csv
+scenarios: 228 (clubs x budgets x objectives) | greedy found no valid plan in 12
+  bargains optimiser >= greedy in 100% | strictly better in 100% | median gain 265.9% | mean gain 316.4%
+  quality  optimiser >= greedy in 100% | strictly better in 95% | median gain 25.7% | mean gain 56.3%
+  never worse than greedy: True
+saved results/optimiser_eval.csv

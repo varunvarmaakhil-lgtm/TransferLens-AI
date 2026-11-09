@@ -163,7 +163,7 @@ def greedy(c, budget_m, max_signings, caps, minimums=None, club_limit=1):
 
 
 def plan_signings(club, budget_eur_m, max_signings=3, positions=None, max_age=None, objective="quality",
-                  min_move_probability=0.0, compare_greedy=True):
+                  min_move_probability=0.0, compare_greedy=True, exclude=None):
     needs = squad_needs(club)
     if "error" in needs:
         return needs
@@ -178,6 +178,8 @@ def plan_signings(club, budget_eur_m, max_signings=3, positions=None, max_age=No
                 "detail": "every position meets its target depth; pass positions to plan anyway"}
     c = candidates(club_name, list(caps), budget_eur_m, max_age, min_move_probability=min_move_probability,
                    objective=objective)
+    if exclude:
+        c = c[~c["name"].isin(set(exclude))].reset_index(drop=True)
     if c.empty:
         return {"club": club_name, "error": "no_candidates", "detail": "no players match the budget and filters"}
     top_needs = [p for p in needs["priority_positions"] if p in caps][:max_signings]
@@ -215,6 +217,32 @@ def plan_signings(club, budget_eur_m, max_signings=3, positions=None, max_age=No
         out["greedy_baseline_note"] = ("same rules; greedy could not find a valid plan" if g is None
                                        else "same rules; best value per euro first")
     return out
+
+
+def plan_options(club, budget_eur_m, max_signings=3, positions=None, max_age=None, objective="quality",
+                 n_plans=3, n_alternatives=5):
+    """Several distinct plans: each new plan may not reuse any player from earlier plans
+    (an exclusion constraint), plus the best remaining candidates per targeted position."""
+    plans, used = [], set()
+    for i in range(n_plans):
+        p = plan_signings(club, budget_eur_m, max_signings, positions=positions, max_age=max_age,
+                          objective=objective, compare_greedy=(i == 0), exclude=used)
+        if "error" in p:
+            if not plans:
+                return p
+            break
+        plans.append(p)
+        used |= {s["name"] for s in p["signings"]}
+    targets = list(dict.fromkeys(s["position"] for s in plans[0]["signings"]))
+    c = candidates(plans[0]["club"], targets, budget_eur_m, max_age, objective=objective)
+    c = c[~c["name"].isin(used)].sort_values("score", ascending=False).groupby("sub_position").head(n_alternatives)
+    alts = [{"name": r["name"], "from_club": r["club_name"], "position": r["sub_position"],
+             "age": int(round(r["age"])), "market_value_eur_m": round(r["cost_m"], 1),
+             "fair_mid_eur_m": round(r["fair_m"], 1),
+             "move_probability_pct": None if pd.isna(r["p_move"]) else int(round(100 * r["p_move"])),
+             "undervalued": bool(r["mv_end"] < r["fair_low"])} for _, r in c.iterrows()]
+    return {"club": plans[0]["club"], "plans": plans, "alternatives": alts,
+            "note": "Plan A is the best plan; each later plan uses none of the players from earlier plans."}
 
 
 def evaluate(n_clubs=40, budgets=(20, 50, 100), max_signings=3, seed=42):

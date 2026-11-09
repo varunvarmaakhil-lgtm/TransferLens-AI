@@ -285,9 +285,38 @@ LABELS = {"minutes_share": "share of club minutes", "apps_share": "share of club
           "seasons_in_data": "seasons in the data", "yellow": "yellow cards", "red": "red cards"}
 
 
+LEAGUES = {
+    "GB1": "Premier League", "ES1": "LaLiga", "IT1": "Serie A", "L1": "Bundesliga", "FR1": "Ligue 1",
+    "NL1": "Eredivisie", "PO1": "Liga Portugal", "BE1": "Belgian Pro League", "TR1": "Super Lig (Turkey)",
+    "SC1": "Scottish Premiership", "RU1": "Russian Premier League", "UKR1": "Ukrainian Premier League",
+    "GR1": "Greek Super League", "DK1": "Danish Superliga", "A1": "Austrian Bundesliga", "C1": "Swiss Super League",
+    "GB2": "Championship", "ES2": "LaLiga 2", "IT2": "Serie B", "L2": "2. Bundesliga", "FR2": "Ligue 2",
+    "CL": "Champions League", "EL": "Europa League", "UCOL": "Conference League",
+    "CLQ": "Champions League qualifying", "ELQ": "Europa League qualifying", "ECLQ": "Conference League qualifying",
+    "USC": "UEFA Super Cup", "KLUB": "Club World Cup",
+    "FAC": "FA Cup", "CGB": "EFL Cup", "GBCS": "Community Shield", "CDR": "Copa del Rey", "SUC": "Supercopa",
+    "CIT": "Coppa Italia", "SCI": "Supercoppa Italiana", "DFB": "DFB-Pokal", "DFL": "DFL-Supercup",
+    "FRCH": "Trophee des Champions", "CDF": "Coupe de France", "NLP": "KNVB Cup", "NLSC": "Johan Cruijff Schaal",
+    "POCP": "Taca de Portugal", "POSU": "Supertaca", "BESC": "Belgian Super Cup", "SFA": "Scottish Cup",
+    "RUP": "Russian Cup", "RUSS": "Russian Super Cup", "UKRP": "Ukrainian Cup", "GRP": "Greek Cup",
+    "DKP": "Danish Cup", "TRP": "Turkish Cup", "TRS": "Turkish Super Cup",
+    "FIWC": "World Cup (national team)", "EURO": "EURO (national team)", "EMQ": "EURO qualifying (national team)",
+    "WMQ": "World Cup qualifying (national team)", "UNL": "Nations League (national team)",
+    "COPA": "Copa America (national team)", "AFCN": "Africa Cup of Nations (national team)",
+}
+
+
+def league_name(code):
+    if code is None or (isinstance(code, float) and pd.isna(code)):
+        return "-"
+    return LEAGUES.get(str(code), str(code))
+
+
 def _fmt_value(feature, v):
     if v is None or (isinstance(v, float) and pd.isna(v)):
         return "unknown"
+    if feature == "main_comp":
+        return league_name(v)
     if isinstance(v, str):
         try:
             v = float(v)
@@ -322,6 +351,60 @@ def explain_player(name, k=5):
                                                       (None if pd.isna(x.value) else float(x.value))),
                                            up if x.shap > 0 else down, x.strength) for x in e.itertuples()]
     return out
+
+
+def _all_seasons():
+    import os
+    if "all" not in _cache:
+        path = D + "player_seasons_all.csv"
+        _cache["all"] = pd.read_csv(path if os.path.exists(path) else D + "player_seasons.csv", low_memory=False)
+    return _cache["all"]
+
+
+def outside_players(since=2018, min_peak_eur_m=5):
+    """Known players who are not in this season's covered leagues (moved to MLS, Saudi Arabia, Brazil, ...,
+    or retired): last seen in the data since 2018 and a career peak value of at least EUR 5M."""
+    a, t = _all_seasons(), _table()
+    last = a.sort_values("season").groupby("player_id").tail(1)
+    peak = a.groupby("player_id")["mv_end"].max()
+    cur = last[(last["season"] >= since) & ~last["player_id"].isin(t["player_id"])].copy()
+    cur["peak"] = cur["player_id"].map(peak)
+    cur = cur[cur["peak"].fillna(0) >= min_peak_eur_m * 1e6]
+    return cur.sort_values("peak", ascending=False)["name"].drop_duplicates().tolist()
+
+
+def career(name):
+    """Season-by-season history for one player, from the full table (including seasons outside the covered
+    leagues, which are marked)."""
+    a = _all_seasons()
+    r, err = _resolve(name)
+    if err:
+        hit = a[a["name"].map(_norm) == _norm(name)]
+        if hit.empty:
+            return err
+        r = hit.sort_values("season").iloc[-1]
+    h = a[a["player_id"] == r["player_id"]].sort_values("season")
+    rows = []
+    for _, s in h.iterrows():
+        covered = pd.notna(s["club_name"]) and s.get("squad_size", 0) >= 11
+        rows.append({"season": "%d/%02d" % (s["season"], (s["season"] + 1) % 100),
+                     "club": s["club_name"] if covered else "outside covered leagues",
+                     "league": league_name(s["main_comp"]) if covered else "-",
+                     "age": _r(s["age"], 0), "apps": int(s["apps_all"]) if pd.notna(s["apps_all"]) else 0,
+                     "minutes": int(s["minutes_all"]) if pd.notna(s["minutes_all"]) else 0,
+                     "goals": int(s["goals"]) if pd.notna(s["goals"]) else 0,
+                     "assists": int(s["assists"]) if pd.notna(s["assists"]) else 0,
+                     "goals_plus_assists_per90": _r(s["ga_p90"]),
+                     "market_value_eur_m": _m(s["mv_end"]), "covered": bool(covered)})
+    cov = [x for x in rows if x["covered"]]
+    clubs = list(dict.fromkeys(x["club"] for x in cov))
+    return {"name": r["name"], "seasons": rows,
+            "totals_covered_seasons": {"seasons": len(cov), "clubs": clubs,
+                                       "apps": sum(x["apps"] for x in cov), "minutes": sum(x["minutes"] for x in cov),
+                                       "goals": sum(x["goals"] for x in cov), "assists": sum(x["assists"] for x in cov),
+                                       "peak_market_value_eur_m": max([x["market_value_eur_m"] or 0 for x in rows] or [0])},
+            "note": "Seasons 2012/13 onwards, all competitions in the data (mainly European leagues, cups and "
+                    "national-team games). Earlier seasons and uncovered leagues are not counted."}
 
 
 def squad_needs(club):
