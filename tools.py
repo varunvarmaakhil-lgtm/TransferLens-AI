@@ -49,6 +49,11 @@ def _resolve(name):
     hit = t[t["key"] == key]
     if hit.empty:
         hit = t[t["key"].str.contains(key, regex=False)]
+    if hit.empty and len(key.split()) > 1:
+        sur = key.split()[-1]
+        by_sur = t[t["key"].str.split().str[-1] == sur]
+        if by_sur["key"].nunique() == 1:
+            hit = by_sur
     if hit.empty:
         keys = t["key"].tolist()
         close = set(difflib.get_close_matches(key, keys, n=5, cutoff=0.6))
@@ -106,8 +111,19 @@ def fair_price(name):
     r, err = _resolve(name)
     if err:
         return err
-    return {"name": r["name"], "club": r["club_name"], "market_value_eur_m": _m(r["mv_end"]),
-            "fair_range_eur_m": {"low": _m(r["fair_low"]), "mid": _m(r["fair_mid"]), "high": _m(r["fair_high"])},
+    mv, lo, mid, hi = _m(r["mv_end"]), _m(r["fair_low"]), _m(r["fair_mid"]), _m(r["fair_high"])
+    if mid is None or mv is None:
+        verdict = "no fair value available"
+    elif _undervalued(r):
+        verdict = "undervalued: market value is below the whole fair range"
+    elif hi is not None and mv > hi:
+        verdict = "overvalued: market value is above the whole fair range"
+    else:
+        verdict = "fairly valued: market value is inside the fair range"
+    return {"name": r["name"], "club": r["club_name"], "fair_value_eur_m": mid, "market_value_eur_m": mv,
+            "fair_range_eur_m": {"low": lo, "mid": mid, "high": hi},
+            "summary_use_this": "%s: fair value EUR %sM (80%% range %s-%sM), market value EUR %sM; %s."
+                                % (r["name"], mid, lo, hi, mv, verdict),
             "undervalued": _undervalued(r),
             "model_quality": "80% range; real values fell inside it 79.8% of the time in testing"}
 

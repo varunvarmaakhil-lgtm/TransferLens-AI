@@ -91,3 +91,27 @@ Example: FC Barcelona, 80 million EUR, 3 signings: Kerkez (LB), Vicario (GK), Do
 The agent reaches the optimiser through two tools, squad_needs and plan_signings. It presents the optimiser's picks as returned and asks for a budget if none is given.
 
 Known limitation: availability (move probability) is a filter, not part of the objective, so a plan can include players who are unlikely to be sold.
+
+## Evaluating the language-model layer (Phase 6)
+
+The ML models are evaluated on unseen seasons (above). The chat layer needs its own test: when a user asks in plain English, does the agent call the right tool with the right arguments and report the result without inventing anything?
+
+agent_eval.py holds 52 questions with known answers across 12 categories (lookups, move probability, fair price, comparisons, explanations, similar players, position searches, squad needs, signing plans, missing budget, misspelled or unknown players, off-topic). The expected facts are computed by calling the tools directly, so they follow the data. Each answer is scored on four checks: right tool (route), right filters (args), real numbers and names in the answer (facts), and every number traceable to a tool output (grounded).
+
+Model: qwen3:8b via Ollama, temperature 0, running locally (about 13 minutes for all 52 on a MacBook Air).
+
+| Check | Model alone (baseline) | With argument checks in code |
+|---|---|---|
+| Pass rate | 83% (43/52) | 98% (51/52) |
+| Route | 98% | 100% |
+| Args | 92% | 98% |
+| Facts | 92% | 100% |
+| Grounded | 100% | 100% |
+
+What the baseline got wrong: it invented a budget when none was given, forgot the position filter, treated "a striker and a winger" as three signings, ignored "we are Arsenal" (so the club's own players could be suggested), and invented a first name for a player.
+
+The fix was code, not prompt wording. Before any tool runs, the agent's arguments are checked against the user's own words: a budget that is not in the question is refused and the model is told to ask for it; numeric filters that the user never stated are dropped; a missing position, the club the user speaks for, and the number of signings are filled from the question. Every change is logged as a code fix (7 of 52 questions). fair_price also now returns one headline fair value and a summary sentence written in code.
+
+The one remaining failure was a bug in the club detector ("We are Arsenal. Find" was read as the club name); it was fixed after the run and checked on that question. Results: results/agent_eval_baseline.csv and results/agent_eval.csv.
+
+Limits: 52 questions is small (each one is about 2% of the score), the questions were written by the author, and passing them does not prove a scout would agree with the recommendations.
