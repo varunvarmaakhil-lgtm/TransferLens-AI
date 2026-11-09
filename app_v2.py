@@ -24,7 +24,7 @@ COLS = {
     "target_depth": CC.NumberColumn("Target"), "reliable_players": CC.NumberColumn("Reliable"),
     "need": CC.NumberColumn("Need"), "likely_to_leave": CC.TextColumn("Likely to leave"),
     "ageing": CC.TextColumn("Ageing (32+)"),
-    "season": CC.TextColumn("Season"), "league": CC.TextColumn("League"), "apps": CC.NumberColumn("Apps"),
+    "span": CC.TextColumn("Seasons"), "season": CC.TextColumn("Season"), "league": CC.TextColumn("League"), "apps": CC.NumberColumn("Apps"),
     "minutes": CC.NumberColumn("Minutes"), "goals": CC.NumberColumn("Goals"), "assists": CC.NumberColumn("Assists"),
 }
 
@@ -63,6 +63,20 @@ def show_career(car):
         st.line_chart(mv.rename("Market value (EUR M)"), height=220)
     table(list(reversed(car["seasons"])), ["season", "club", "league", "age", "apps", "minutes", "goals",
                                            "assists", "goals_plus_assists_per90", "market_value_eur_m"])
+    cov = pd.DataFrame([s for s in car["seasons"] if s.get("covered", True)])
+    if len(cov):
+        rows = []
+        for club, g in cov.groupby("club", sort=False):
+            rows.append({"club": club, "span": "%s to %s" % (g["season"].iloc[0], g["season"].iloc[-1]),
+                         "apps": int(g["apps"].sum()), "minutes": int(g["minutes"].sum()),
+                         "goals": int(g["goals"].sum()), "assists": int(g["assists"].sum())})
+        rows.append({"club": "Total", "span": "%s to %s" % (cov["season"].iloc[0], cov["season"].iloc[-1]),
+                     "apps": int(cov["apps"].sum()), "minutes": int(cov["minutes"].sum()),
+                     "goals": int(cov["goals"].sum()), "assists": int(cov["assists"].sum())})
+        for r in rows:
+            r["goals_plus_assists_per90"] = round(90 * (r["goals"] + r["assists"]) / r["minutes"], 2) if r["minutes"] else None
+        st.markdown("**Career totals by club**")
+        table(rows, ["club", "span", "apps", "minutes", "goals", "assists", "goals_plus_assists_per90"])
     st.caption("Clubs: %s. %s" % (" > ".join(tot["clubs"]) or "-", car["note"]))
 
 
