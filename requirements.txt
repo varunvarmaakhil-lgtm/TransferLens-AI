@@ -1,0 +1,9 @@
+pandas
+numpy
+scikit-learn
+catboost
+scipy
+duckdb
+streamlit
+ollama
+tqdm
